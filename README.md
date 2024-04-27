@@ -4,10 +4,10 @@ A simple security system to run on a [Raspberry Pi](https://www.raspberrypi.org/
 
 Features:
 
-  - Motion detection and photo capture using the camera
-  - Mobile notifications with photos
-  - Detects when you are home and arms or disarms automatically
-  - Can be remotely controlled using [Telegram](https://telegram.org/)
+-   Motion detection and photo capture using the camera
+-   Mobile notifications with photos
+-   Detects when you are home and arms or disarms automatically
+-   Can be remotely controlled using [Telegram](https://telegram.org/)
 
 <a href="#"><img src="https://raw.githubusercontent.com/FutureSharks/rpi-security/master/images/rpi-security-1.jpg" width="600"></a>
 
@@ -17,15 +17,15 @@ Features:
 
 You will need this hardware:
 
-  - Raspberry Pi with camera interface.
-  - Raspberry Pi camera module.
-  - A Wi-Fi adapter that supports monitor mode (see [note](#WiFi-adapter-arrangement))
+-   Raspberry Pi with camera interface.
+-   Raspberry Pi camera module.
+-   A Wi-Fi adapter that supports monitor mode (see [note](#WiFi-adapter-arrangement))
 
 Software requirements:
 
-  - A [Telegram bot](https://core.telegram.org/bots). It's free and easy to setup.
-  - Raspbian Stretch Lite distribution installed.
-  - Python 3.
+-   A [Telegram bot](https://core.telegram.org/bots). It's free and easy to setup.
+-   Raspbian Stretch Lite distribution installed.
+-   Python 3.
 
 ## How it works
 
@@ -33,9 +33,9 @@ Software requirements:
 
 One of my main goals was to have the system completely automatic. I didn't want to have to arm or disarm it when leaving or arriving home. I figured the easiest way to achieve this was to try and detect the mobile phones of the home occupants. Conceptually this was quite simple but in practice it was the most challenging part because:
 
-  - Capturing all packets on a Wi-Fi interface is too resource intensive.
-  - Mobile phones are not always online and sending packets over Wi-Fi. Sometimes they stay unconnected for 15 minutes or longer.
-  - Even with 99% accuracy, false alarms are annoying.
+-   Capturing all packets on a Wi-Fi interface is too resource intensive.
+-   Mobile phones are not always online and sending packets over Wi-Fi. Sometimes they stay unconnected for 15 minutes or longer.
+-   Even with 99% accuracy, false alarms are annoying.
 
 After much testing I used an approach that mixes active (ARP ping) and passive (packet capture) detection over the Wi-Fi adapter based on knowing the MAC addresses of the mobile phones. The mobile phone MAC addresses are set in the configuration and rpi-security captures packets on a monitor mode interface with the following filter:
 
@@ -48,10 +48,10 @@ The application resets a counter when packets are detected and if the counter go
 
 Motion detection is done using [OpenCV](https://opencv.org/). Each motion detection will save 4 pictures in `/tmp`:
 
- - frame.jpg: The picture with rectangles surrounding the motion
- - gray.jpg: The picture with grayscale and blur (which will be use to detect motion between the current frame and the previous one)
- - abs_diff.jpg: The absolute difference between they grays frames (current and previous)
- - thresh.jpg: A threshold has been applied to be sure the motion is important enough to be detected.
+-   frame.jpg: The picture with rectangles surrounding the motion
+-   gray.jpg: The picture with grayscale and blur (which will be use to detect motion between the current frame and the previous one)
+-   abs_diff.jpg: The absolute difference between they grays frames (current and previous)
+-   thresh.jpg: A threshold has been applied to be sure the motion is important enough to be detected.
 
 #### Notifications
 
@@ -63,27 +63,27 @@ A [Telegram](https://core.telegram.org/bots) bot is used to send notifications w
 
 You can send the Telegram bot commands that trigger certain actions.
 
-  - */disable*: Disables the service until re-enabled.
-  - */enable*: Enables the service after it being disabled.
-  - */status*: Sends a status report.
-  - */photo*: Captures and sends a photo.
-  - */gif*: Captures and sends a gif.
+-   _/disable_: Disables the service until re-enabled.
+-   _/enable_: Enables the service after it being disabled.
+-   _/status_: Sends a status report.
+-   _/photo_: Captures and sends a photo.
+-   _/gif_: Captures and sends a gif.
 
 #### Python
 
 The application is written in python 3 and large parts of the functionality are provided by the following pip packages:
 
-  - [picamera](https://github.com/waveform80/picamera)
-  - [kamene](https://github.com/phaethon/kamene)
-  - [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
-  - [opencv-python](https://github.com/skvark/opencv-python)
+-   [picamera](https://github.com/waveform80/picamera)
+-   [kamene](https://github.com/phaethon/kamene)
+-   [python-telegram-bot](https://github.com/python-telegram-bot/python-telegram-bot)
+-   [opencv-python](https://github.com/skvark/opencv-python)
 
 The application uses multithreading in order to process events asynchronously. There are 4 threads:
 
-  - telegram_bot: Responds to commands.
-  - monitor_alarm_state: Arms and disarms the system.
-  - capture_packets: Captures packets from the mobile devices.
-  - process_photos: Sends captured images via Telegram messages.
+-   telegram_bot: Responds to commands.
+-   monitor_alarm_state: Arms and disarms the system.
+-   capture_packets: Captures packets from the mobile devices.
+-   process_photos: Sends captured images via Telegram messages.
 
 ## Installation, configuration and Running
 
@@ -107,7 +107,7 @@ sudo apt install -y libhdf5-103 libharfbuzz0b libwebp6 libjasper1 libopenexr23 l
 Install OpenCV and rpi-security:
 
 ```console
-sudo pip3 install opencv-contrib-python==3.4.6.27 opencv-contrib-python-headless==3.4.6.27
+sudo pip3 install opencv-contrib-python==4.9.0.80 opencv-contrib-python-headless==4.9.0.80
 sudo pip3 install --no-binary :all: https://github.com/FutureSharks/rpi-security/archive/1.5.zip
 ```
 
@@ -170,8 +170,8 @@ Your WiFi adapter must support monitor mode. The Raspberry Pi built-in wireless 
 
 The easiest way to get a monitor mode WiFi adapter is to just buy a USB adapter that supports it. Currently the best options are:
 
-- RT5370: very cheap, easy to find but only supports 2.4Ghz
-- RT3572: more expensive, hard to find but supports both 2.4Ghz and 5Ghz
+-   RT5370: very cheap, easy to find but only supports 2.4Ghz
+-   RT3572: more expensive, hard to find but supports both 2.4Ghz and 5Ghz
 
 Most modern phones and routers use 5Ghz now so results could be unreliable if your adapter only supports 2.4Ghz.
 

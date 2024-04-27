@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name = 'rpi-security',
-    version = '1.5',
+    version = '1.6',
     author = 'Max Williams',
     author_email = 'futuresharks@gmail.com',
     url = 'https://github.com/FutureSharks/rpi-security',
@@ -20,9 +20,9 @@ setup(
         ('/var/lib/rpi-security', ['etc/data.yaml'])
     ],
     install_requires = [
-        'python-telegram-bot==12.2.0',
+        'python-telegram-bot==21.1.1',
         'picamera==1.13',
-        'imutils==0.5.2',
+        'imutils==0.5.4',
         'numpy',
         'configparser',
         'requests',
@@ -31,9 +31,9 @@ setup(
         'netifaces',
         'pyyaml',
         'kamene==0.32',
-        'Pillow==6.2.1',
-        'opencv-contrib-python==3.4.6.27',
-        'opencv-contrib-python-headless==3.4.6.27',
+        'Pillow==10.3.0',
+        'opencv-contrib-python==4.9.0.80',
+        'opencv-contrib-python-headless==4.9.0.80',
     ],
     classifiers = [
         'Environment :: Console',
